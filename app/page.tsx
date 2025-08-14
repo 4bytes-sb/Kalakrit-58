@@ -1,10 +1,11 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import AnimatedImageChain from "@/components/animated-image-chain"
 
 export default function HomePage() {
   return (
     <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
-      <div className="flex flex-col lg:flex-row items-center justify-between min-h-[70vh] lg:min-h-[80vh] gap-8 lg:gap-0">
+      <div className="flex flex-col lg:flex-row items-center justify-between min-h-[70vh] lg:min-h-[80vh] gap-8 lg:gap-12">
         {/* Left Content */}
         <div className="flex-1 max-w-2xl text-center lg:text-left">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 font-serif leading-tight">
@@ -27,15 +28,9 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* Right Content - Featured Art */}
+        {/* Right Content - Animated Art Chain */}
         <div className="flex-1 flex justify-center w-full lg:w-auto">
-          <div className="glass-card p-4 md:p-8 max-w-sm md:max-w-md w-full">
-            <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1.jpg-JYV66RY4H5TDfjUQHNFBdvLC7AbZaZ.jpeg"
-              alt="Traditional Indian Art"
-              className="w-full h-60 md:h-80 object-cover rounded-2xl"
-            />
-          </div>
+          <AnimatedImageChain />
         </div>
       </div>
     </div>

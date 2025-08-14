@@ -28,11 +28,45 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} antialiased`}>
-      <body className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-teal-600">
-        <div className="min-h-screen backdrop-blur-sm">
+    <html lang="en" className={`${inter.variable} ${playfair.variable} antialiased dark`}>
+      <body className="min-h-screen overflow-x-hidden">
+        <div className="fixed inset-0 z-0">
+          {/* Primary dark gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-black"></div>
+
+          {/* Secondary gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-800/30 via-transparent to-teal-800/20"></div>
+
+          {/* Floating 3D elements */}
+          <div className="floating-element absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full blur-xl"></div>
+          <div
+            className="floating-element absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-teal-600/20 to-blue-600/20 rounded-full blur-lg"
+            style={{ animationDelay: "2s" }}
+          ></div>
+          <div
+            className="floating-element absolute bottom-32 left-1/4 w-40 h-40 bg-gradient-to-br from-indigo-600/15 to-purple-600/15 rounded-full blur-2xl"
+            style={{ animationDelay: "4s" }}
+          ></div>
+          <div
+            className="floating-element absolute bottom-20 right-1/3 w-28 h-28 bg-gradient-to-br from-pink-600/20 to-orange-600/20 rounded-full blur-xl"
+            style={{ animationDelay: "1s" }}
+          ></div>
+
+          {/* Geometric shapes for 3D depth */}
+          <div className="absolute top-1/4 left-1/2 w-2 h-2 bg-white/10 rotate-45 animate-pulse"></div>
+          <div
+            className="absolute top-3/4 left-1/4 w-1 h-1 bg-white/20 rotate-12 animate-pulse"
+            style={{ animationDelay: "1.5s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 right-1/4 w-1.5 h-1.5 bg-white/15 rotate-45 animate-pulse"
+            style={{ animationDelay: "3s" }}
+          ></div>
+        </div>
+
+        <div className="relative z-10 min-h-screen">
           <Navigation />
-          <main className="relative z-10">{children}</main>
+          <main className="relative z-20">{children}</main>
         </div>
       </body>
     </html>
