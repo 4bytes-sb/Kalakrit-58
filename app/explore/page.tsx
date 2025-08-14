@@ -1,7 +1,14 @@
 import { Search } from "lucide-react"
+import Link from "next/link"
 
 export default function ExplorePage() {
-  const categories = ["Painting", "Artifacts", "Heritage", "Festivals", "Handicrafts"]
+  const categories = [
+    { name: "Painting", href: "/explore/painting" },
+    { name: "Artifacts", href: "/explore/artifacts" },
+    { name: "Heritage", href: "/explore/heritage" },
+    { name: "Festivals", href: "/explore/festivals" },
+    { name: "Handicrafts", href: "/explore/handicrafts" },
+  ]
 
   return (
     <div className="container mx-auto px-4 md:px-6 py-6 md:py-8">
@@ -33,12 +40,13 @@ export default function ExplorePage() {
           {/* Mobile: Horizontal scroll, Desktop: Vertical stack */}
           <div className="flex lg:flex-col gap-3 md:gap-4 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0">
             {categories.map((category) => (
-              <button
-                key={category}
-                className="flex-shrink-0 lg:w-full glass-card p-4 md:p-6 text-left text-white text-lg md:text-xl font-semibold btn-hover whitespace-nowrap lg:whitespace-normal"
+              <Link
+                key={category.name}
+                href={category.href}
+                className="flex-shrink-0 lg:w-full glass-card p-4 md:p-6 text-left text-white text-lg md:text-xl font-semibold btn-hover whitespace-nowrap lg:whitespace-normal block"
               >
-                {category}
-              </button>
+                {category.name}
+              </Link>
             ))}
           </div>
         </div>
