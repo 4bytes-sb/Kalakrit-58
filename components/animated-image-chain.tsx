@@ -57,125 +57,98 @@ const artImages = [
 ]
 
 export default function AnimatedImageChain() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % artImages.length)
+      setActiveIndex((prev) => (prev + 1) % artImages.length)
     }, 3000)
 
     return () => clearInterval(interval)
   }, [])
 
   return (
-    <div className="relative w-full max-w-sm md:max-w-2xl mx-auto perspective-container">
+    <div className="relative w-full max-w-lg mx-auto">
       {/* Main rotating display */}
-      <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] overflow-hidden">
-        {/* Primary image display */}
-        <div className="glass-card p-3 md:p-6 h-full depth-card">
-          <div className="relative h-full w-full overflow-hidden rounded-xl md:rounded-2xl">
+      <div className="relative h-80 md:h-96 lg:h-[400px] overflow-hidden rounded-3xl">
+        <div className="glass-card h-full p-6">
+          <div className="relative h-full w-full overflow-hidden rounded-2xl">
             <Image
-              src={artImages[currentIndex].src || "/placeholder.svg"}
-              alt={artImages[currentIndex].alt}
+              src={artImages[activeIndex].src || "/placeholder.svg"}
+              alt={artImages[activeIndex].alt}
               fill
               className="object-cover transition-all duration-1000 ease-in-out"
-              sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, 50vw"
-              priority
+              sizes="(max-width: 768px) 100vw, 512px"
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 md:p-4">
-              <h3 className="text-white font-serif text-sm sm:text-base md:text-lg lg:text-xl font-semibold">
-                {artImages[currentIndex].title}
-              </h3>
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+              <h3 className="text-white font-serif text-lg font-semibold mb-1">{artImages[activeIndex].title}</h3>
+              <p className="text-white/80 text-sm">{artImages[activeIndex].alt}</p>
             </div>
           </div>
         </div>
-
-        {/* Floating background elements - hidden on mobile for performance */}
-        <div className="hidden sm:block absolute -top-6 md:-top-10 -left-6 md:-left-10 w-20 md:w-32 h-20 md:h-32 opacity-30">
-          <Image
-            src={artImages[(currentIndex + 1) % artImages.length].src || "/placeholder.svg"}
-            alt="Background art"
-            fill
-            className="object-cover rounded-full blur-sm floating-element"
-            sizes="(max-width: 768px) 80px, 128px"
-          />
-        </div>
-
-        <div className="hidden sm:block absolute -bottom-6 md:-bottom-10 -right-6 md:-right-10 w-16 md:w-24 h-16 md:h-24 opacity-20">
-          <Image
-            src={artImages[(currentIndex + 2) % artImages.length].src || "/placeholder.svg"}
-            alt="Background art"
-            fill
-            className="object-cover rounded-full blur-md floating-element"
-            sizes="(max-width: 768px) 64px, 96px"
-            style={{ animationDelay: "2s" }}
-          />
-        </div>
-
-        <div className="hidden lg:block absolute top-1/2 -right-16 w-20 h-20 opacity-25">
-          <Image
-            src={artImages[(currentIndex + 3) % artImages.length].src || "/placeholder.svg"}
-            alt="Background art"
-            fill
-            className="object-cover rounded-full blur-sm floating-element"
-            sizes="80px"
-            style={{ animationDelay: "4s" }}
-          />
-        </div>
       </div>
 
-      {/* Side preview images - only on large screens */}
-      <div className="hidden xl:flex absolute top-1/2 -translate-y-1/2 -left-20 flex-col gap-4">
-        {[1, 2].map((offset) => {
-          const index = (currentIndex + offset) % artImages.length
-          return (
-            <button
-              key={index}
-              className="w-16 h-16 glass-card p-1 opacity-60 hover:opacity-100 transition-all duration-300 active:scale-95"
-              onClick={() => setCurrentIndex(index)}
-            >
+      {/* Floating background elements */}
+      <div className="absolute inset-0 -z-10">
+        {artImages.slice(0, 4).map((image, index) => (
+          <div
+            key={`floating-${index}`}
+            className="floating-element absolute opacity-20"
+            style={{
+              top: `${20 + index * 20}%`,
+              left: `${10 + index * 25}%`,
+              animationDelay: `${index * 2}s`,
+            }}
+          >
+            <div className="w-16 h-16 md:w-20 md:h-20 glass-card p-2">
               <Image
-                src={artImages[index].src || "/placeholder.svg"}
-                alt={artImages[index].alt}
+                src={image.src || "/placeholder.svg"}
+                alt={image.alt}
                 fill
-                className="object-cover rounded-xl"
-                sizes="64px"
+                className="object-cover rounded-lg blur-sm"
+                sizes="(max-width: 768px) 64px, 80px"
               />
-            </button>
-          )
-        })}
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="hidden xl:flex absolute top-1/2 -translate-y-1/2 -right-20 flex-col gap-4">
-        {[4, 5].map((offset) => {
-          const index = (currentIndex + offset) % artImages.length
-          return (
-            <button
-              key={index}
-              className="w-16 h-16 glass-card p-1 opacity-60 hover:opacity-100 transition-all duration-300 active:scale-95"
-              onClick={() => setCurrentIndex(index)}
-            >
-              <Image
-                src={artImages[index].src || "/placeholder.svg"}
-                alt={artImages[index].alt}
-                fill
-                className="object-cover rounded-xl"
-                sizes="64px"
-              />
-            </button>
-          )
-        })}
+      {/* Side preview images */}
+      <div className="absolute top-1/2 -left-16 transform -translate-y-1/2 hidden lg:block">
+        <div className="glass-card w-12 h-12 p-1 opacity-60">
+          <Image
+            src={artImages[(activeIndex - 1 + artImages.length) % artImages.length].src || "/placeholder.svg"}
+            alt="Previous"
+            fill
+            className="object-cover rounded-lg"
+            sizes="48px"
+          />
+        </div>
       </div>
 
-      {/* Progress indicators - touch-friendly on mobile */}
-      <div className="flex justify-center mt-4 md:mt-6 gap-2">
+      <div className="absolute top-1/2 -right-16 transform -translate-y-1/2 hidden lg:block">
+        <div className="glass-card w-12 h-12 p-1 opacity-60">
+          <Image
+            src={artImages[(activeIndex + 1) % artImages.length].src || "/placeholder.svg"}
+            alt="Next"
+            fill
+            className="object-cover rounded-lg"
+            sizes="48px"
+          />
+        </div>
+      </div>
+
+      {/* Navigation dots */}
+      <div className="flex justify-center mt-6 gap-2">
         {artImages.map((_, index) => (
           <button
             key={index}
-            className={`h-2 rounded-full transition-all duration-300 active:scale-95 ${
-              index === currentIndex ? "bg-white w-6 md:w-8" : "bg-white/30 hover:bg-white/50 w-2"
-            }`}
-            onClick={() => setCurrentIndex(index)}
+            className={`transition-all duration-300 ${
+              index === activeIndex
+                ? "w-8 h-2 bg-gradient-to-r from-purple-400 to-pink-400"
+                : "w-2 h-2 bg-white/30 hover:bg-white/50"
+            } rounded-full`}
+            onClick={() => setActiveIndex(index)}
             aria-label={`View image ${index + 1}`}
           />
         ))}

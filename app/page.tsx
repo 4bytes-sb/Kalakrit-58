@@ -5,9 +5,9 @@ import AnimatedImageChain from "@/components/animated-image-chain"
 export default function HomePage() {
   return (
     <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
-      <div className="flex flex-col lg:flex-row items-center justify-between min-h-[70vh] lg:min-h-[80vh] gap-8 lg:gap-12">
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[70vh] lg:min-h-[80vh]">
         {/* Left Content */}
-        <div className="flex-1 max-w-2xl text-center lg:text-left">
+        <div className="space-y-6 md:space-y-8 text-center lg:text-left">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 font-serif leading-tight">
             Kalakrit:
             <br />
@@ -28,8 +28,8 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* Right Content - Animated Art Chain */}
-        <div className="flex-1 flex justify-center w-full lg:w-auto">
+        {/* Right Content - Image Chain */}
+        <div className="flex justify-center items-center">
           <AnimatedImageChain />
         </div>
       </div>

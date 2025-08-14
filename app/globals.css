@@ -166,22 +166,144 @@
 }
 
 .floating-element {
-  animation: floating 8s ease-in-out infinite;
+  animation: floating 8s ease-in-out infinite, backgroundWave 12s ease-in-out infinite reverse;
 }
 
-/* Added 3D perspective and depth effects */
-.perspective-container {
-  perspective: 1000px;
-  transform-style: preserve-3d;
+/* Chain structure animations */
+@keyframes chainFlow {
+  0%,
+  100% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(10px) translateY(-5px) rotate(2deg);
+  }
+  50% {
+    transform: translateX(-5px) translateY(5px) rotate(-1deg);
+  }
+  75% {
+    transform: translateX(5px) translateY(-10px) rotate(1deg);
+  }
 }
 
-.depth-card {
-  transform: rotateX(5deg) rotateY(-5deg);
-  transition: transform 0.3s ease;
+@keyframes chainLinkPulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+  }
 }
 
-.depth-card:hover {
-  transform: rotateX(0deg) rotateY(0deg) translateZ(20px);
+@keyframes floatingChain {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-15px) translateX(10px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(10px) translateX(-5px) rotate(-3deg);
+  }
+}
+
+@keyframes backgroundWave {
+  0%,
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  25% {
+    transform: translateX(20px) translateY(-10px) scale(1.1);
+  }
+  50% {
+    transform: translateX(-10px) translateY(20px) scale(0.9);
+  }
+  75% {
+    transform: translateX(15px) translateY(-15px) scale(1.05);
+  }
+}
+
+@keyframes particleFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-30px) rotate(180deg);
+    opacity: 0.7;
+  }
+}
+
+/* Chain container styles */
+.chain-container {
+  position: relative;
+  overflow: visible;
+}
+
+.chain-flow {
+  animation: chainFlow 12s ease-in-out infinite;
+}
+
+.chain-link {
+  animation: chainLinkPulse 6s ease-in-out infinite;
+}
+
+.chain-link-active {
+  animation: chainLinkPulse 3s ease-in-out infinite;
+  z-index: 20 !important;
+}
+
+.chain-connector {
+  animation: chainFlow 8s ease-in-out infinite reverse;
+}
+
+.chain-link-ring {
+  animation: chainLinkPulse 4s ease-in-out infinite;
+}
+
+.floating-chain-element {
+  animation: floatingChain 10s ease-in-out infinite;
+}
+
+.chain-dot {
+  animation: chainLinkPulse 8s ease-in-out infinite;
+}
+
+/* Enhanced background animations */
+.chain-background::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  animation: backgroundWave 15s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.chain-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(139, 92, 246, 0.4), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(236, 72, 153, 0.3), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.2), transparent);
+  background-repeat: repeat;
+  background-size: 150px 100px;
+  animation: particleFloat 20s linear infinite;
+  pointer-events: none;
 }
 
 /* Enhanced navigation styling for dark theme */
@@ -199,5 +321,19 @@
 
   .glass-card {
     @apply mx-2;
+  }
+
+  .chain-link {
+    animation-duration: 4s;
+  }
+
+  .floating-chain-element {
+    width: 40px !important;
+    height: 40px !important;
+    animation-duration: 6s;
+  }
+
+  .chain-connector {
+    width: 20px !important;
   }
 }
