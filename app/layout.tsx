@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import Navigation from "@/components/navigation"
+import Footer from "@/components/footer"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -67,6 +68,7 @@ export default function RootLayout({
         <div className="relative z-10 min-h-screen">
           <Navigation />
           <main className="relative z-20">{children}</main>
+          <Footer />
         </div>
       </body>
     </html>

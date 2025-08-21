@@ -1,6 +1,66 @@
-import { Settings, Heart, Share2 } from "lucide-react"
+"use client"
+
+import type React from "react"
+
+import { Settings, Heart, Share2, Plus, Upload, X } from "lucide-react"
+import { useState } from "react"
 
 export default function ProfilePage() {
+  const [showAddForm, setShowAddForm] = useState(false)
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    price: "",
+    condition: "",
+    location: "",
+    image: null as File | null,
+  })
+
+  const categories = [
+    { value: "painting", label: "Painting" },
+    { value: "artifacts", label: "Artifacts" },
+    { value: "heritage", label: "Heritage" },
+    { value: "festivals", label: "Festivals" },
+    { value: "handicrafts", label: "Handicrafts" },
+  ]
+
+  const conditions = [
+    { value: "excellent", label: "Excellent" },
+    { value: "good", label: "Good" },
+    { value: "fair", label: "Fair" },
+    { value: "restoration", label: "Needs Restoration" },
+  ]
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setFormData((prev) => ({ ...prev, image: file }))
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission here
+    console.log("Form submitted:", formData)
+    setShowAddForm(false)
+    // Reset form
+    setFormData({
+      title: "",
+      description: "",
+      category: "",
+      price: "",
+      condition: "",
+      location: "",
+      image: null,
+    })
+  }
+
   const userCollections = [
     { id: 1, title: "Madhubani Collection", items: 12 },
     { id: 2, title: "Temple Art", items: 8 },
@@ -53,6 +113,169 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Add New Item Section */}
+      <div className="mb-6 md:mb-8">
+        <div className="flex items-center justify-between mb-4 md:mb-6">
+          <h2 className="text-xl md:text-2xl font-bold text-white">Add New Item</h2>
+          <button
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="flex items-center gap-2 glass-card px-4 py-2 btn-hover text-white"
+          >
+            <Plus className="w-5 h-5" />
+            <span className="hidden sm:inline">Add Item</span>
+          </button>
+        </div>
+
+        {showAddForm && (
+          <div className="glass-card p-4 md:p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg md:text-xl font-semibold text-white">Add New Art Piece</h3>
+              <button onClick={() => setShowAddForm(false)} className="text-white/60 hover:text-white">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                {/* Title */}
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">Title *</label>
+                  <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/60 focus:outline-none focus:border-purple-400"
+                    placeholder="Enter artwork title"
+                  />
+                </div>
+
+                {/* Category */}
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">Category *</label>
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-400"
+                  >
+                    <option value="">Select category</option>
+                    {categories.map((cat) => (
+                      <option key={cat.value} value={cat.value} className="bg-gray-800">
+                        {cat.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Price */}
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">Price (₹) *</label>
+                  <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    required
+                    min="0"
+                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/60 focus:outline-none focus:border-purple-400"
+                    placeholder="Enter price in rupees"
+                  />
+                </div>
+
+                {/* Condition */}
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">Condition *</label>
+                  <select
+                    name="condition"
+                    value={formData.condition}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-purple-400"
+                  >
+                    <option value="">Select condition</option>
+                    {conditions.map((cond) => (
+                      <option key={cond.value} value={cond.value} className="bg-gray-800">
+                        {cond.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Location */}
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">Location</label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
+                    className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/60 focus:outline-none focus:border-purple-400"
+                    placeholder="City, State"
+                  />
+                </div>
+
+                {/* Image Upload */}
+                <div>
+                  <label className="block text-white text-sm font-medium mb-2">Upload Image *</label>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      required
+                      className="hidden"
+                      id="image-upload"
+                    />
+                    <label
+                      htmlFor="image-upload"
+                      className="flex items-center justify-center w-full h-12 bg-white/10 border border-white/20 rounded-lg cursor-pointer hover:bg-white/20 transition-colors"
+                    >
+                      <Upload className="w-5 h-5 text-white/60 mr-2" />
+                      <span className="text-white/60">
+                        {formData.image ? formData.image.name : "Choose image file"}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-white text-sm font-medium mb-2">Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-white/60 focus:outline-none focus:border-purple-400 resize-none"
+                  placeholder="Describe your artwork, its history, significance, etc."
+                />
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowAddForm(false)}
+                  className="px-6 py-2 text-white/70 hover:text-white transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-medium"
+                >
+                  Add Item
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
 
       {/* Collections Grid */}

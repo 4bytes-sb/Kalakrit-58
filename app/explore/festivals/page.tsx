@@ -1,233 +1,150 @@
-import { ArrowLeft, Heart, Share2, Eye, Calendar, MapPin, Users, Sparkles } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
+"use client"
 
 export default function FestivalsPage() {
   const festivals = [
     {
       id: 1,
       title: "Diwali",
-      subtitle: "Festival of Lights",
-      date: "October/November",
+      season: "October/November",
       region: "Pan-India",
-      image: "/art-3.png",
-      likes: 2100,
-      views: 8500,
-      description: "The most celebrated Hindu festival symbolizing victory of light over darkness",
-      participants: "1 Billion+",
-      category: "Religious",
-      duration: "5 Days",
+      type: "Hindu Festival",
+      description: "Festival of lights celebrating the victory of light over darkness and good over evil",
+      image: "/diwali-lights.png",
+      duration: "5 days",
+      significance: "Victory of Light",
     },
     {
       id: 2,
       title: "Holi",
-      subtitle: "Festival of Colors",
-      date: "March",
+      season: "March",
       region: "North India",
-      image: "/art-1.png",
-      likes: 1800,
-      views: 7200,
-      description: "Vibrant spring festival celebrating love, joy, and the triumph of good over evil",
-      participants: "500 Million+",
-      category: "Cultural",
-      duration: "2 Days",
+      type: "Hindu Festival",
+      description: "Festival of colors celebrating spring, love, and the triumph of good over evil",
+      image: "/holi-colors.png",
+      duration: "2 days",
+      significance: "Festival of Colors",
     },
     {
       id: 3,
       title: "Durga Puja",
-      subtitle: "Goddess Festival",
-      date: "September/October",
+      season: "September/October",
       region: "West Bengal",
-      image: "/art-2.png",
-      likes: 1200,
-      views: 4800,
-      description: "Grand celebration honoring Goddess Durga with elaborate pandals and cultural programs",
-      participants: "100 Million+",
-      category: "Religious",
-      duration: "10 Days",
+      type: "Hindu Festival",
+      description: "Celebration of Goddess Durga's victory over the buffalo demon Mahishasura",
+      image: "/durga-puja.png",
+      duration: "10 days",
+      significance: "Divine Feminine Power",
     },
     {
       id: 4,
-      title: "Onam",
-      subtitle: "Harvest Festival",
-      date: "August/September",
-      region: "Kerala",
-      image: "/madhubani-fish.png",
-      likes: 890,
-      views: 3600,
-      description: "Kerala's state festival celebrating King Mahabali's return with flower carpets",
-      participants: "35 Million+",
-      category: "Harvest",
-      duration: "10 Days",
+      title: "Eid ul-Fitr",
+      season: "Variable (Lunar)",
+      region: "Pan-India",
+      type: "Islamic Festival",
+      description: "Celebration marking the end of Ramadan with prayers, feasts, and charity",
+      image: "/eid-celebration.png",
+      duration: "3 days",
+      significance: "End of Ramadan",
     },
     {
       id: 5,
-      title: "Ganesh Chaturthi",
-      subtitle: "Elephant God Festival",
-      date: "August/September",
-      region: "Maharashtra",
-      image: "/tanjore-ganesha.png",
-      likes: 1500,
-      views: 6000,
-      description: "Celebration of Lord Ganesha with grand processions and immersion ceremonies",
-      participants: "200 Million+",
-      category: "Religious",
-      duration: "11 Days",
+      title: "Onam",
+      season: "August/September",
+      region: "Kerala",
+      type: "Regional Festival",
+      description: "Harvest festival celebrating King Mahabali's annual visit to Kerala",
+      image: "/onam-pookalam.png",
+      duration: "10 days",
+      significance: "Harvest Celebration",
     },
     {
       id: 6,
-      title: "Pushkar Camel Fair",
-      subtitle: "Desert Festival",
-      date: "November",
-      region: "Rajasthan",
-      image: "/warli-village.png",
-      likes: 650,
-      views: 2800,
-      description: "World's largest camel fair with cultural performances and trading",
-      participants: "400,000+",
-      category: "Cultural",
-      duration: "7 Days",
+      title: "Ganesh Chaturthi",
+      season: "August/September",
+      region: "Maharashtra",
+      type: "Hindu Festival",
+      description: "Celebration of Lord Ganesha's birth with elaborate processions and immersion",
+      image: "/ganesh-festival.png",
+      duration: "11 days",
+      significance: "Remover of Obstacles",
     },
   ]
 
-  const upcomingFestivals = [
-    { name: "Karva Chauth", date: "Nov 1", region: "North India" },
-    { name: "Diwali", date: "Nov 12", region: "Pan-India" },
-    { name: "Guru Nanak Jayanti", date: "Nov 15", region: "Punjab" },
-    { name: "Christmas", date: "Dec 25", region: "Pan-India" },
-  ]
-
   return (
-    <div className="container mx-auto px-4 md:px-6 py-6 md:py-8">
-      {/* Header with Back Button */}
-      <div className="flex items-center gap-4 mb-6 md:mb-8">
-        <Link href="/explore" className="glass-card p-3 btn-hover">
-          <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 text-white" />
-        </Link>
-        <div>
-          <h1 className="text-white text-2xl md:text-3xl font-bold">Festivals</h1>
-          <p className="text-white/80 text-sm md:text-base">
-            Celebrate India's vibrant festivals and cultural traditions
+    <div className="min-h-screen p-4 md:p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Indian Festivals</h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Experience the vibrant tapestry of Indian festivals that celebrate life, spirituality, seasons, and
+            community bonds across diverse cultures and traditions.
           </p>
         </div>
-      </div>
 
-      {/* Upcoming Festivals Banner */}
-      <div className="glass-card p-4 md:p-6 mb-6 md:mb-8">
-        <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="w-5 h-5 text-yellow-400" />
-          <h2 className="text-white text-lg md:text-xl font-semibold">Upcoming Festivals</h2>
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="glass-card p-6 text-center">
+            <div className="text-3xl font-bold text-purple-400 mb-2">100+</div>
+            <div className="text-gray-300">Major Festivals</div>
+          </div>
+          <div className="glass-card p-6 text-center">
+            <div className="text-3xl font-bold text-blue-400 mb-2">365</div>
+            <div className="text-gray-300">Days of Celebration</div>
+          </div>
+          <div className="glass-card p-6 text-center">
+            <div className="text-3xl font-bold text-teal-400 mb-2">28</div>
+            <div className="text-gray-300">States</div>
+          </div>
+          <div className="glass-card p-6 text-center">
+            <div className="text-3xl font-bold text-pink-400 mb-2">8+</div>
+            <div className="text-gray-300">Religions</div>
+          </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {upcomingFestivals.map((festival, index) => (
-            <div key={index} className="text-center">
-              <div className="text-purple-400 font-semibold text-sm md:text-base">{festival.name}</div>
-              <div className="text-white/70 text-xs md:text-sm">{festival.date}</div>
-              <div className="text-white/50 text-xs">{festival.region}</div>
+
+        {/* Festivals Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {festivals.map((festival) => (
+            <div key={festival.id} className="glass-card group hover:scale-105 transition-all duration-300">
+              <div className="aspect-video bg-gradient-to-br from-orange-900/20 via-pink-900/20 to-purple-900/20 rounded-t-2xl mb-4 flex items-center justify-center">
+                <div className="text-6xl opacity-50">🎉</div>
+              </div>
+
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-bold text-white">{festival.title}</h3>
+                  <span className="text-xs px-2 py-1 bg-orange-900/30 text-orange-300 rounded-full">
+                    {festival.duration}
+                  </span>
+                </div>
+
+                <p className="text-purple-300 text-sm mb-1">{festival.season}</p>
+                <p className="text-blue-300 text-sm mb-2">{festival.region}</p>
+                <p className="text-teal-300 text-xs mb-3 px-2 py-1 bg-teal-900/30 rounded-full inline-block">
+                  {festival.type}
+                </p>
+                <p className="text-gray-300 text-sm mb-4 line-clamp-3">{festival.description}</p>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-pink-400 font-medium">{festival.significance}</span>
+                  <button className="px-4 py-2 bg-gradient-to-r from-orange-600 to-pink-600 text-white rounded-lg hover:from-orange-700 hover:to-pink-700 transition-all duration-300">
+                    Learn More
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Filter Tags */}
-      <div className="flex gap-3 mb-6 md:mb-8 overflow-x-auto pb-2">
-        {["All", "Religious", "Cultural", "Harvest", "Regional", "National", "Seasonal"].map((tag) => (
+        {/* Back Button */}
+        <div className="text-center mt-12">
           <button
-            key={tag}
-            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-              tag === "All"
-                ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
-                : "glass-card text-white/80 hover:text-white btn-hover"
-            }`}
+            onClick={() => window.history.back()}
+            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105"
           >
-            {tag}
+            ← Back to Explore
           </button>
-        ))}
-      </div>
-
-      {/* Festivals Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        {festivals.map((festival) => (
-          <div key={festival.id} className="glass-card overflow-hidden btn-hover group">
-            <div className="relative aspect-[4/3] overflow-hidden">
-              <Image
-                src={festival.image || "/placeholder.svg"}
-                alt={festival.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button className="p-2 bg-black/50 rounded-full backdrop-blur-sm btn-hover">
-                  <Heart className="w-4 h-4 text-white" />
-                </button>
-                <button className="p-2 bg-black/50 rounded-full backdrop-blur-sm btn-hover">
-                  <Share2 className="w-4 h-4 text-white" />
-                </button>
-              </div>
-              <div className="absolute top-4 left-4">
-                <span className="px-2 py-1 bg-orange-500/80 backdrop-blur-sm rounded-full text-white text-xs font-medium">
-                  {festival.category}
-                </span>
-              </div>
-            </div>
-
-            <div className="p-4 md:p-6">
-              <div className="mb-3">
-                <h3 className="text-white text-lg md:text-xl font-semibold">{festival.title}</h3>
-                <p className="text-purple-300 text-sm font-medium">{festival.subtitle}</p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
-                <div className="flex items-center gap-1 text-white/70">
-                  <Calendar className="w-4 h-4" />
-                  <span>{festival.date}</span>
-                </div>
-                <div className="flex items-center gap-1 text-white/70">
-                  <MapPin className="w-4 h-4" />
-                  <span>{festival.region}</span>
-                </div>
-                <div className="flex items-center gap-1 text-white/70">
-                  <Users className="w-4 h-4" />
-                  <span>{festival.participants}</span>
-                </div>
-                <div className="flex items-center gap-1 text-white/70">
-                  <Sparkles className="w-4 h-4" />
-                  <span>{festival.duration}</span>
-                </div>
-              </div>
-
-              <p className="text-white/70 text-sm mb-4 line-clamp-2">{festival.description}</p>
-
-              <div className="flex items-center justify-between text-white/60 text-sm">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <Heart className="w-4 h-4" />
-                    <span>{festival.likes}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Eye className="w-4 h-4" />
-                    <span>{festival.views}</span>
-                  </div>
-                </div>
-                <button className="text-purple-400 hover:text-purple-300 transition-colors font-medium">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Festival Calendar CTA */}
-      <div className="glass-card p-6 md:p-8 mt-8 md:mt-12 text-center">
-        <h3 className="text-white text-xl md:text-2xl font-semibold mb-4">Festival Calendar 2024</h3>
-        <p className="text-white/80 mb-6">
-          Never miss a celebration! Get the complete Indian festival calendar with dates and regional variations.
-        </p>
-        <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-medium btn-hover">
-          Download Calendar
-        </button>
+        </div>
       </div>
     </div>
   )
